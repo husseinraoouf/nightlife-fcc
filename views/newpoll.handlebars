@@ -1,0 +1,18 @@
+<div class="jumbotron">
+  <h1>Make a new poll!</h1>
+
+  <form id="local-sign-in" action="/createpoll" method="post">
+    <div>
+        <p></p>
+        <label>Title:</label>
+        <input type="text" name="title"/>
+    </div>
+    <div>
+        <label>Options (seperated by line):</label>
+        <textarea name="options"></textarea>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary btn-sm" value="Make!"/>
+    </div>
+  </form>
+</div>

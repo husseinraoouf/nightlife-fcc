@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Polls</h3>
+  </div>
+  <div class="panel-body">
+      {{#each polls}}
+          <a href="/poll/{{this._id}}">{{this.title}}</a><br/>
+      {{else}}
+          <p>You Have No Polls</p>
+      {{/each}}
+    <!-- <p>Username: {{user.displayName}}</p>
+    <p>Avatar: <img src="{{user.avatar}}"/></p> -->
+  </div>
+</div>

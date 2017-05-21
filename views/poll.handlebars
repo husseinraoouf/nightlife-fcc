@@ -1,0 +1,76 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(
+        [{{#each pollarr}}
+            {{#if @last}}
+                [{{#each this}}
+                    {{#if @first}}
+                        "{{this}}",
+                    {{else}}
+                        {{this}}
+                    {{/if}}
+                {{/each}}]
+            {{else}}
+                {{#if @first}}
+                    [{{#each this}}
+                        {{#if @first}}
+                            "{{this}}",
+                        {{else}}
+                            "{{this}}"
+                        {{/if}}
+                    {{/each}}],
+                {{else}}
+                    [{{#each this}}
+                        {{#if @first}}
+                            "{{this}}",
+                        {{else}}
+                            {{this}}
+                        {{/if}}
+                    {{/each}}],
+                {{/if}}
+            {{/if}}
+        {{/each}}
+        ]
+    );
+
+    var options = {
+      pieHole: 0.4,
+      backgroundColor: "transparent",
+      legend: {position: 'top', textStyle: {color: 'black', fontSize: 16}}
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+</script>
+
+
+
+
+<div class="jumbotron">
+  <h1>{{poll.title}}</h1>
+
+  <form action="/vote" method="post">
+    <div>
+        <label>Vote for:</label>
+        <select name="q">
+            {{#each poll.options}}
+                <option>{{this}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div>
+        <input type="hidden" name="pollId" value="{{poll._id}}">
+        <input type="submit" class="btn btn-primary" value="Vote!"/>
+        {{# if del}}
+            <a class="btn btn-danger" href="/delete/{{poll._id}}">Delete</a>
+        {{/if}}
+    </div>
+  </form>
+
+
+  <div id="donutchart" style="width: 500px; height: 500px;display: inline-block; "></div>
+</div>

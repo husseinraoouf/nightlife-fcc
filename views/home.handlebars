@@ -1,0 +1,54 @@
+
+<!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Wikipedia_wordmark.svg/2000px-Wikipedia_wordmark.svg.png" class="img-fluid" alt="wikipedia logo"> -->
+<div class="input-group input-group-lg">
+    {{#if q}}
+        <input type="text" class="form-control" id="qq" aria-describedby="basic-addon1" value="{{q}}">
+    {{else}}
+        <input type="text" class="form-control" id="qq" aria-describedby="basic-addon1">
+    {{/if}}
+  <!-- <input type="text" class="form-control" id="qq" aria-describedby="basic-addon1"> -->
+  </div>
+  <div class="text-center">
+      <button type="button" class="btn btn-secondary btn-lg" id="search">Search</button>
+  </div>
+  <div id="result">
+      <!-- {{results}} -->
+      {{#each results}}
+
+
+
+          <div class="card">
+              <div class="card-block">
+                  <a = href="{{this.url}}">
+                      <img src="{{this.img}}" style="width: 100px; height: 100px; display: inline-block;" />
+                      <h4 class="card-title">{{this.name}}</h4>
+                  </a>
+                  <button type="button" class="btn btn-secondary btn-s going" onClick="but('{{this.id}}');">
+                      <span id="{{this.id}}">{{this.numGoing}}</span> Going
+                  </button>
+                  <p class="card-text">{{this.des}}</p>
+              </div>
+          </div>
+
+
+
+
+        <!-- <div class="card">
+            <div class="card-block">
+                <a = href="{{this.url}}">
+                    <img src="{{this.img}}" style="width: 100px; height: 100px; display: inline-block;" />
+                    <h4 class="card-title">{{this.name}}</h4>
+                </a>
+                <button type="button" class="btn btn-secondary btn-s going">{{this.numGoing}} Going</button>
+                <p class="card-text">{{this.des}}</p>
+            </div>
+        </div> -->
+      {{/each}}
+
+
+
+  </div>
+  <div id="ww">
+
+  </div>
+</div>

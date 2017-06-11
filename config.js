@@ -1,6 +1,7 @@
 module.exports = {
   "mongodbUri" : "mongodb://hussein:123456@ds143241.mlab.com:43241/heroku_4gs89k5k",
   "url" : "https://hussein-nightlife-fcc.herokuapp.com/",
+  
   "TWITTER_CONSUMER_KEY" : "MkLSxCTNyLrGNCHUcBVsMbQB2",
   "TWITTER_CONSUMER_SECRET" : "epmai5qADfEAyhtyRutH383BoY4MTUrlH4c7DhpLXLqZEPWqdw",
 

@@ -332,5 +332,4 @@ app.get('/auth/facebook/callback',
 var port = process.argv[2];
 app.listen(port, function() {
   console.log('server listening on port ' + port);
-  console.log(config.url);
 });

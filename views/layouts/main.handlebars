@@ -7,13 +7,14 @@
   <meta name="description" content="User Authentication">
   <meta name="author" content="">
 
-  <title>User Authentication</title>
+  <title>{{title}}</title>
 
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
   <style>
-  .btn {
-    margin: 10px 20px 10px 20px;
+    .btn {
+        margin: 10px 20px 10px 20px;
     }
 
     a {
@@ -25,6 +26,7 @@
     color: rgb(2, 117, 216);
     text-decoration: none;
     }
+
   </style>
   </head>
 
@@ -89,9 +91,12 @@
     {{/if}}
 
     <!--where our other templates will insert-->
+
     {{{body}}}
 
     </div> <!-- /container -->
+
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -114,8 +119,11 @@
         // $("#"+id).html("adw");
     }
     $(document).ready(function() {
-        $('#search').click(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            $('.preloader').show();
             var qq = $('#qq').val();
+            // document.getElementById("qq").value = "";
             $("#result").html("");
             $.ajax({
                 url: '/yelp/search?q=' + qq,
@@ -123,19 +131,13 @@
                 dataType: 'json',
                 success: function(data) {
                     $.each(data, function (i, item) {
+                        $('.preloader').hide();
                         {{#if user}}
                             $("#result").append('<div class="card"><div class="card-block"><a = href="' + item.url + '"><img src="' + item.img + '" style="width: 100px; height: 100px; display: inline-block;" /><h4 class="card-title">'+ item.name +'</h4></a><button type="button" class="btn btn-secondary btn-s going" onClick="but(\'' + item.id + '\');"><span id="' + item.id + '">' + item.numGoing + '</span> Going</button><p class="card-text">'+item.des+'</p></div></div>');
                         {{else}}
                             $("#result").append('<div class="card"><div class="card-block"><a = href="' + item.url + '"><img src="' + item.img + '" style="width: 100px; height: 100px; display: inline-block;" /><h4 class="card-title">'+ item.name +'</h4></a><a  href="/signin?q='+ qq + '" class="btn btn-secondary btn-s" id="' + i + '">' + item.numGoing + ' Going</a><p class="card-text">'+item.des+'</p></div></div>');
                         {{/if}}
                     });
-                    document.getElementById("qq").value = "";
-
-                    // console.log($('div#result').find('button'));
-                    // var s = $("#result").html();
-                    // // console.log(s);
-                    // $("#result").empty();
-                    // $("#result").html(s)
                 }
             });
         });

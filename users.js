@@ -31,7 +31,7 @@ exports.findOrCreate = function (profile, cb) {
             if(profile.photos){
                 user["avatar"] = profile.photos[0].value;
             } else {
-                user["avatar"] = "http://placepuppy.it/images/homepage/Beagle_puppy_6_weeks.JPG";
+                user["avatar"] = "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png";
             }
 
             console.log("CREATING USER:", profile.displayName);

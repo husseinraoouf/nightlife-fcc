@@ -29,7 +29,7 @@ exports.localReg = function (req, username, password) {
             "displayName": req.body.displayName,
             "username": username,
             "password": hash,
-            "avatar": "http://placepuppy.it/images/homepage/Beagle_puppy_6_weeks.JPG"
+            "avatar": "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"
           }
 
           console.log("CREATING USER:", username);

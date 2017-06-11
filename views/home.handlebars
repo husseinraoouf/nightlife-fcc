@@ -1,54 +1,36 @@
+<div class="text-center">
+    <h2>Plans tonight?</h2>
+</div>
+<form>
 
-<!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Wikipedia_wordmark.svg/2000px-Wikipedia_wordmark.svg.png" class="img-fluid" alt="wikipedia logo"> -->
-<div class="input-group input-group-lg">
+<div class="input-group input-group-lg" style="display: block;">
     {{#if q}}
-        <input type="text" class="form-control" id="qq" aria-describedby="basic-addon1" value="{{q}}">
+        <input type="text" class="form-control" id="qq" aria-describedby="basic-addon1" value="{{q}}" placeholder="Where You At?">
     {{else}}
-        <input type="text" class="form-control" id="qq" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" id="qq" aria-describedby="basic-addon1" placeholder="Where You At?">
     {{/if}}
-  <!-- <input type="text" class="form-control" id="qq" aria-describedby="basic-addon1"> -->
-  </div>
-  <div class="text-center">
-      <button type="button" class="btn btn-secondary btn-lg" id="search">Search</button>
-  </div>
-  <div id="result">
-      <!-- {{results}} -->
-      {{#each results}}
+</div>
+<div class="text-center">
+    <button type="button" class="btn btn-secondary btn-lg" id="search">Search</button>
+</div>
+</form>
+<div class="text-center">
+    <div class="preloader" style="display: none;"><img src="https://cdn.hyperdev.com/us-east-1%3A60e6615e-7d9e-47ac-903b-3b4b47372e42%2Fpreloader.gif"></div>
+</div>
 
-
-
-          <div class="card">
-              <div class="card-block">
-                  <a = href="{{this.url}}">
-                      <img src="{{this.img}}" style="width: 100px; height: 100px; display: inline-block;" />
-                      <h4 class="card-title">{{this.name}}</h4>
-                  </a>
-                  <button type="button" class="btn btn-secondary btn-s going" onClick="but('{{this.id}}');">
-                      <span id="{{this.id}}">{{this.numGoing}}</span> Going
-                  </button>
-                  <p class="card-text">{{this.des}}</p>
-              </div>
+<div id="result">
+  {{#each results}}
+      <div class="card">
+          <div class="card-block">
+              <a = href="{{this.url}}">
+                  <img src="{{this.img}}" style="width: 100px; height: 100px; display: inline-block;" />
+                  <h4 class="card-title">{{this.name}}</h4>
+              </a>
+              <button type="button" class="btn btn-secondary btn-s going" onClick="but('{{this.id}}');">
+                  <span id="{{this.id}}">{{this.numGoing}}</span> Going
+              </button>
+              <p class="card-text">{{this.des}}</p>
           </div>
-
-
-
-
-        <!-- <div class="card">
-            <div class="card-block">
-                <a = href="{{this.url}}">
-                    <img src="{{this.img}}" style="width: 100px; height: 100px; display: inline-block;" />
-                    <h4 class="card-title">{{this.name}}</h4>
-                </a>
-                <button type="button" class="btn btn-secondary btn-s going">{{this.numGoing}} Going</button>
-                <p class="card-text">{{this.des}}</p>
-            </div>
-        </div> -->
-      {{/each}}
-
-
-
-  </div>
-  <div id="ww">
-
-  </div>
+      </div>
+  {{/each}}
 </div>

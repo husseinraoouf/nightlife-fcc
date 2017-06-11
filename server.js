@@ -96,12 +96,6 @@ passport.use(new TwitterStrategy({
     callbackURL: config.url + "auth/twitter/callback"
   },
   function(token, tokenSecret, profile, cb) {
-    // In this example, the user's Twitter profile is supplied as the user
-    // record.  In a production-quality application, the Twitter profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    // console.log(profile);
     User.findOrCreate(profile, cb);
   }
 ));
@@ -124,8 +118,6 @@ passport.use(new FacebookStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
       User.findOrCreate(profile, done);
-    // console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"+ profile+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    //   return done(null, profile);
   }
 ));
 
@@ -184,30 +176,18 @@ app.get("/go", function(req, res) {
 
                 });
             } else {
-                // places.findOne({ _id: req.query.q}).then(function(result1) {
-                //     if(result1) {
-                        collection.insert({"userid" : req.user._id, placeId: req.query.q}, function(err, data) {
-                            places.findAndModify(
-                                { _id: req.query.q},
-                                [],
-                                { $inc: { going: 1 } },
-                                { new: true, upsert: true }, function(er1, data1) {
-                                console.log(er1 + "\n\n\n\n\n\n\n\n\n");
-                                console.log(JSON.stringify(data1) + "\n\n\n\n\n\n\n\n\n");
-                                res.json({num: data1.value.going});
-                            });
-
+                    collection.insert({"userid" : req.user._id, placeId: req.query.q}, function(err, data) {
+                        places.findAndModify(
+                            { _id: req.query.q},
+                            [],
+                            { $inc: { going: 1 } },
+                            { new: true, upsert: true }, function(er1, data1) {
+                            console.log(er1 + "\n\n\n\n\n\n\n\n\n");
+                            console.log(JSON.stringify(data1) + "\n\n\n\n\n\n\n\n\n");
+                            res.json({num: data1.value.going});
                         });
-                //     }
-                //
-                // })
-                // collection.insert({"userid" : req.user._id, placeId: req.query.q}, function(err, data) {
-                //     places.insert({ _id: req.query.q, going: 1}, function(err1, data1) {
-                //         console.log(data1);
-                //         res.json({num: 1})
-                //     })
-                //
-                // })
+
+                    });
             }
         });
 
@@ -216,36 +196,17 @@ app.get("/go", function(req, res) {
 
 
 app.get('/', function(req, res){
-    // console.log(req.user);
-    // MongoClient.connect(mongodbUrl, function (err, db) {
-    //     var collection = db.collection('polls');
-    //     collection.find().toArray(function(err, result) {
-    //         if (!result) {
-    //             res.render('home', {polls: [], user: req.user});
-    //         } else {
-    //             res.render('home', {polls: result, user: req.user});
-    //         }
-    //     });
-    // });
-    // console.log(req.body.q);
     if (req.session.q){
-        // console.log(req.session.q);
         q = req.session.q
         delete req.session.q;
         request.get(config.url + 'yelp/search?' + qs.stringify({ q: q }), function(error, response, body) {
-            // console.log('body:', body);
             var body1 = JSON.parse(body);
-            // for (var i = 0; i < body.lenght; i++) {
-            //     console.log(body1[i]);
-            // }
-            res.render('home', {user: req.user, results: body1, q:q});
+            res.render('home', {user: req.user, results: body1, q:q, title : 'NightLife'});
         });
     }
     else {
-        res.render('home', {user: req.user});
+        res.render('home', {user: req.user, title : 'NightLife'});
     }
-
-    //   res.render('home', {user: req.user, polls:});
 });
 
 
@@ -265,9 +226,6 @@ app.get('/yelp/search', function(req, res){
 
                 // Perform operation on file here.
                 client.reviews(listItem.id).then(response => {
-                    // console.log( response.jsonBody.reviews[0].text + "\n\n\n");
-
-                    // console.log(response.jsonBody.reviews[0].text);
                     MongoClient.connect(mongodbUrl, function (err, db) {
                         var collection = db.collection('places');
                         collection.findOne({"_id" : listItem.id}).then(function (result) {
@@ -304,17 +262,6 @@ app.get('/yelp/search', function(req, res){
                     res.json(arr);
                 }
             });
-            // response.jsonBody.businesses.forEach(function(listItem , index){
-            //
-            //
-            //     // console.log(i);
-            //     // console.log(response.jsonBody.businesses[i].id);
-            // });
-
-
-            // res.json(arr);
-            // console.log(arr);
-            // console.log(response.jsonBody.businesses[0].name);
         });
 
     }).catch(e => {
@@ -327,7 +274,7 @@ app.get('/yelp/search', function(req, res){
 
 app.get('/signin', function(req, res){
     req.session.q = req.query.q;
-    res.render('signin');
+    res.render('signin', {title : 'NightLife | Sign In'});
 });
 
 app.post('/local-reg', passport.authenticate('local-signup', {
